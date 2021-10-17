@@ -1,17 +1,18 @@
 FROM python:3
 
 # set a diroctory for the app
-WORKDIR /demo
+WORKDIR /usr/src/app
 
-
-#copy all the files to the container
-COPY . .
+COPY requirements.txt ./
 
 # install dependencies
-RUN pip3 install -r requrements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+#copy all the files to the container
+COPY . ./
 
 # defaine the port number the containar should expose
-EXPOSE 5000
+# EXPOSE 5000
 
 # run the command
 CMD ["python", "./bitcoin.py"]
