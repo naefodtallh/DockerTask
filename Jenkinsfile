@@ -29,7 +29,7 @@ pipeline {
            steps {
               
                 sh 'docker build -t python:3 .' 
-                sh 'docker tag python naefodtallh/demo-fursa/python:3'
+                sh 'docker tag python naefodtallh/demo-fursa:python:3'
                
           }
         }
@@ -37,7 +37,7 @@ pipeline {
         stage('Publish image to Docker Hub') {  
             steps {
                 withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) {
-                   sh  'docker push naefodtallh/demo-fursa/python' 
+                   sh  'docker push naefodtallh/demo-fursa:python' 
             }      
           }
         }
@@ -46,7 +46,7 @@ pipeline {
              
             steps 
 			{
-                sh "docker run -d -p 5000:8080 naefodtallh/demo-fursa/python"
+                sh "docker run -d -p 5000:8080 naefodtallh/demo-fursa:python"
  
             }
         }
@@ -54,7 +54,7 @@ pipeline {
         stage('Run Docker container on remote hosts') {
              
             steps {
-                sh "docker -H ssh://jenkins@http://x.xxx.xxx.xxx:8080/ run -d -p 5000:8080 nnaefodtallh/demo-fursa/python"
+                sh "docker -H ssh://jenkins@http://x.xxx.xxx.xxx:8080/ run -d -p 5000:8080 nnaefodtallh/demo-fursa:python"
  
             }
         }*/
